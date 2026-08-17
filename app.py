@@ -86,7 +86,11 @@ player_games = games_df[(games_df.white_norm == player_norm) | (games_df.black_n
 opponents = sorted(set(player_games.loc[player_games.white_norm == player_norm, "black"]) | set(player_games.loc[player_games.black_norm == player_norm, "white"]))
 selected_opponent = st.sidebar.selectbox("Adversário", ["Todos os adversários"] + opponents)
 openings = sorted(player_games.opening_name.dropna().unique().tolist())
+events = sorted(player_games.event.dropna().unique().tolist())
+sites = sorted(player_games.site.dropna().unique().tolist())
 selected_opening = st.sidebar.selectbox("Abertura", ["Todas as aberturas"] + openings)
+selected_events = st.sidebar.selectbox("Evento", ["Todos os eventos"] + events)
+selected_sites = st.sidebar.selectbox("Local (Local/Cidade/UF)", ["Todos"] + sites)
 selected_color = st.sidebar.selectbox("Cor", ["Todas", "Brancas", "Pretas"])
 selected_result = st.sidebar.selectbox("Resultado", ["Todos", "Vitória", "Derrota", "Empate"])
 
@@ -99,8 +103,12 @@ if selected_opening != "Todas as aberturas":
 view = build_player_dataframe(filtered, selected_player)
 if selected_color != "Todas":
     view = view[view.player_color == selected_color]
+if selected_sites != "Todos":
+    view = view[view.site == selected_sites]
 if selected_result != "Todos":
     view = view[view.player_result == selected_result]
+if selected_events != "Todos os eventos":
+    view = view[view.event == selected_events]
 
 st.sidebar.caption(f"Partidas após filtros: {len(view)}")
 if view.empty:
