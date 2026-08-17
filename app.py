@@ -215,7 +215,7 @@ st.dataframe(detail[["Linha", "Primeiros 10 lances", "Partidas", "Vitórias", "D
 
 st.subheader("Partidas filtradas")
 columns = ["game_id", "date", "event", "round", "opponent", "player_color", "player_result", "player_rating", "opponent_rating", "eco", "opening_name", "full_moves", "first_10_moves"]
-st.dataframe(view[columns].rename(columns={"opening_name": "Abertura", "first_10_moves": "Primeiros 10 lances"}).sort_values(["date", "game_id"], ascending=[False, False]), use_container_width=True, hide_index=True)
+st.dataframe(view[columns].rename(columns={"opening_name": "Abertura", "first_10_moves": "Primeiros 10 lances"}).sort_values(["game_id","date"], ascending=[True, False]), use_container_width=True, hide_index=True)
 
 with st.expander("Visualizar PGN"):
     selected_id = st.selectbox("ID da partida", view.game_id.tolist())
