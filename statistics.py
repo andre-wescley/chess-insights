@@ -61,6 +61,6 @@ def build_opening_dataframe(df):
         partidas=("game_id", "count"), vitorias=("is_win", "sum"), derrotas=("is_loss", "sum"), empates=("is_draw", "sum")
     ).reset_index()
     grouped["aproveitamento"] = (grouped.vitorias + 0.5 * grouped.empates) / grouped.partidas * 100
-    grouped = grouped.sort_values(["partidas", "eco", "opening_name"], ascending=[True, True, False]).reset_index(drop=True)
+    grouped = grouped.sort_values(["partidas", "eco", "opening_name"], ascending=[False, True, False]).reset_index(drop=True)
     grouped["linha"] = grouped.groupby(["eco", "opening_name"]).cumcount().add(1)
     return grouped
